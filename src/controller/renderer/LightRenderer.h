@@ -1,0 +1,31 @@
+//
+// Created by Florian on 06.12.17.
+//
+
+#ifndef SILVA_LIGHTRENDERER_H
+#define SILVA_LIGHTRENDERER_H
+
+#include <controller/TimeBasedController.h>
+#include "../BaseController.h"
+#include "controller/app/Installation.h"
+
+class LightRenderer : public TimeBasedController {
+private:
+
+protected:
+    explicit LightRenderer(Installation *installation, unsigned long frameRate);
+
+    Installation *installation;
+
+public:
+    void setup() override;
+
+    void timedLoop() override;
+
+    virtual void render(SlicePtr slice);
+
+    float mapToGlobalBrightnessRange(float value);
+};
+
+
+#endif //SILVA_LIGHTRENDERER_H
