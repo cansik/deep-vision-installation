@@ -44,7 +44,7 @@
 #define OSC_IN_PORT 8000
 
 // ligth rendering
-#define PWM_PIN_MAPPING {1, 2, 3}
+#define PWM_PIN_MAPPING {16, 17, 18, 19, 23, 25, 26}
 #define PWM_RESOLUTION 13
 #define PWM_FREQUENCY 5000
 
