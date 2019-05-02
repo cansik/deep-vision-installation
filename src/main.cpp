@@ -49,9 +49,7 @@
 #define PWM_FREQUENCY 5000
 
 // typedefs
-typedef BaseController
-        *
-        BaseControllerPtr;
+typedef BaseController *BaseControllerPtr;
 typedef Slice *SlicePtr;
 
 // controllers
@@ -63,8 +61,8 @@ auto osc = OscController(OSC_IN_PORT, OSC_OUT_PORT);
 auto oscRouter = OSCDataRouter(&osc);
 
 // variables
-SlicePtr portals[SLICE_COUNT];
-auto installation = Installation(SLICE_COUNT, portals, &oscRouter);
+SlicePtr slices[SLICE_COUNT];
+auto installation = Installation(SLICE_COUNT, slices, &oscRouter);
 
 // renderer
 uint8_t pwmPins[] = PWM_PIN_MAPPING;
@@ -72,9 +70,9 @@ LightRenderer *renderer = new PWMLightRenderer(PWM_RESOLUTION, PWM_FREQUENCY, pw
 LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // scenes
-auto portalScene = DefaultScene(&installation);
+auto defaultScene = DefaultScene(&installation);
 auto showScene = ShowScene(&installation);
-auto sceneController = InstallationSceneController(&installation, &portalScene, &showScene);
+auto sceneController = InstallationSceneController(&installation, &defaultScene, &showScene);
 
 // controller list
 BaseControllerPtr controllers[] = {
