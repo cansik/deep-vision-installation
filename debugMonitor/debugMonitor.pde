@@ -19,8 +19,8 @@ int sliceCount = 7;
 
 Slice[] slices = new Slice[sliceCount];
 
-float plateThickness = 4;
-float plateSpace = 300;
+float plateThickness = 10;
+float plateSpace = 350;
 float plateWidth = 10;
 float plateHeight = 10;
 
