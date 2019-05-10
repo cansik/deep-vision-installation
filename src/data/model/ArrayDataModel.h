@@ -114,11 +114,12 @@ void ArrayDataModel<T>::addToOSCRouter(OSCDataRouter *oscDataRouter,
                                        IOSCBindingConverter *converter) {
 
     for (auto i = 0; i < size; i++) {
+        // todo: fix memory leak
         String addrTemp = addressTemplate + "";
         addrTemp.replace("%i", String(i));
 
-        char *address = new char[addrTemp.length()];
-        addrTemp.toCharArray(address, addrTemp.length());
+        char *address = new char[addrTemp.length() + 1];
+        addrTemp.toCharArray(address, addrTemp.length() + 1);
 
         oscDataRouter->addRule(new OSCDataBinding(address, values[i], publishOnReceive, converter));
     }
