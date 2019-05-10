@@ -109,8 +109,9 @@ template<typename T>
 void ArrayDataModel<T>::addToOSCRouter(OSCDataRouter *oscDataRouter, const char *addressTemplate, bool publishOnReceive,
                                        IOSCBindingConverter *converter) {
     for (auto i = 0; i < size; i++) {
-        // todo: change address by replacing a predefined var
-        oscDataRouter->addRule(new OSCDataBinding(addressTemplate, values[i], publishOnReceive, converter));
+        auto address = String(addressTemplate);
+        address.replace("%i", String(i));
+        oscDataRouter->addRule(new OSCDataBinding(address.c_str(), values[i], publishOnReceive, converter));
     }
 }
 

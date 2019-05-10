@@ -53,7 +53,7 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/randomFactor", &timeStarRandomOnFactor, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/brightness/min", &timeStarMinBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/brightness/max", &timeStarMaxBrightness, true));
-    defaultBrightness.addToOSCRouter(oscDataRouter, "/dv/led/%d/default", true);
+    defaultBrightness.addToOSCRouter(oscDataRouter, "/dv/led/%i/default", true);
 }
 
 float AppSettings::getMinBrightness() const {
@@ -182,4 +182,8 @@ void AppSettings::setRestartCount(unsigned int value) {
 
 void AppSettings::incRestartCount() {
     restartCount.set(restartCount.get() + 1);
+}
+
+const float AppSettings::getDefaultBrightness(int index) const {
+    return defaultBrightness.get(index);
 }

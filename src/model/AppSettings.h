@@ -53,7 +53,7 @@ private:
     DataModel<bool> sceneControllerOn = DataModel<bool>(true);
 
     // brightness
-    ArrayDataModel<float> defaultBrightness = ArrayDataModel<float>(0.5, 7);
+    ArrayDataModel<float> defaultBrightness = ArrayDataModel<float>(1.0, 7);
 
 public:
     AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage, EEPROMStorage *statsStorage);
@@ -121,6 +121,8 @@ public:
     const bool isSceneControllerOn() const;
 
     void setSceneControllerOn(bool value);
+
+    const float getDefaultBrightness(int index) const;
 };
 
 

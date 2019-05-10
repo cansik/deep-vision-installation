@@ -17,10 +17,11 @@ void DefaultScene::loop() {
     BaseScene::loop();
 
     for (auto i = 0; i < installation->getSize(); i++) {
-        auto portal = installation->getSlice(i);
+        auto slice = installation->getSlice(i);
 
         // update brightness (let it shine)
-        portal->getLed()->setBrightness(LED_MAX_BRIGHTNESS);
+        auto brightness = installation->getSettings()->getDefaultBrightness(i);
+        slice->getLed()->setBrightness(brightness);
     }
 }
 
