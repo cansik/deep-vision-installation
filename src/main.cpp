@@ -10,6 +10,7 @@
 #include <data/osc/OSCDataRouter.h>
 #include <data/osc/rule/OSCInputAction.h>
 #include <data/osc/rule/OSCOutputAction.h>
+#include <controller/scene/star/TimeStarScene.h>
 
 #include "controller/BaseController.h"
 #include "model/Slice.h"
@@ -22,7 +23,6 @@
 #include "controller/scene/SceneController.h"
 #include "controller/renderer/SerialLightRenderer.h"
 #include "controller/renderer/PWMLightRenderer.h"
-#include "controller/scene/star/TimeStarScene.h"
 #include "util/MathUtils.h"
 #include "DeepVisionConstants.h"
 
@@ -50,6 +50,7 @@ LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 // scenes
 auto defaultScene = DefaultScene(&installation);
 auto showScene = ShowScene(&installation);
+auto timeStarScene = TimeStarScene(&installation);
 auto sceneController = InstallationSceneController(&installation, &defaultScene, &showScene);
 
 // controller list
@@ -125,6 +126,15 @@ void setupOSCActions() {
     oscRouter.addRule(new OSCInputAction("/dv/show/start", [](IOSCPublisher *publisher, OSCMessage &msg) {
         // todo: implement start
         sendRefresh();
+    }));
+
+    // scene chaning
+    oscRouter.addRule(new OSCInputAction("/dv/scene/default", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        sceneController.changeScene(&defaultScene);
+    }));
+
+    oscRouter.addRule(new OSCInputAction("/dv/scene/timeStar", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        sceneController.changeScene(&timeStarScene);
     }));
 
     oscRouter.addRule(new OSCInputAction("/dv/stats/reset", [](IOSCPublisher *publisher, OSCMessage &msg) {

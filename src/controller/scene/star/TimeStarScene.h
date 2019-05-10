@@ -2,8 +2,8 @@
 // Created by Florian Bruggisser on 25.10.18.
 //
 
-#ifndef TIL_TIMESTARSCENE_H
-#define TIL_TIMESTARSCENE_H
+#ifndef DV_TIMESTARSCENE_H
+#define DV_TIMESTARSCENE_H
 
 
 #include "../BaseScene.h"
@@ -28,4 +28,4 @@ public:
 };
 
 
-#endif //TIL_TIMESTARSCENE_H
+#endif //DV_TIMESTARSCENE_H
