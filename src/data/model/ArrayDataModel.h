@@ -49,7 +49,9 @@ public:
 
     int getSize() const;
 
-    void addToOSCRouter(OSCDataRouter *oscDataRouter, const char *addressTemplate, bool publishOnReceive = false,
+    void addToOSCRouter(OSCDataRouter *oscDataRouter,
+                        String addressTemplate,
+                        bool publishOnReceive = false,
                         IOSCBindingConverter *converter = nullptr);
 
 };
@@ -106,12 +108,19 @@ int ArrayDataModel<T>::getSize() const {
 }
 
 template<typename T>
-void ArrayDataModel<T>::addToOSCRouter(OSCDataRouter *oscDataRouter, const char *addressTemplate, bool publishOnReceive,
+void ArrayDataModel<T>::addToOSCRouter(OSCDataRouter *oscDataRouter,
+                                       String addressTemplate,
+                                       bool publishOnReceive,
                                        IOSCBindingConverter *converter) {
+
     for (auto i = 0; i < size; i++) {
-        auto address = String(addressTemplate);
-        address.replace("%i", String(i));
-        oscDataRouter->addRule(new OSCDataBinding(address.c_str(), values[i], publishOnReceive, converter));
+        String addrTemp = addressTemplate + "";
+        addrTemp.replace("%i", String(i));
+
+        char *address = new char[addrTemp.length()];
+        addrTemp.toCharArray(address, addrTemp.length());
+
+        oscDataRouter->addRule(new OSCDataBinding(address, values[i], publishOnReceive, converter));
     }
 }
 

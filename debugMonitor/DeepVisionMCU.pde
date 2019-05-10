@@ -64,7 +64,7 @@ class DeepVisionMCU extends MicroControllerUnit implements Runnable
       return;
 
     // relevant data
-    String[] data = raw.split(":");
+    String[] data = raw.split(";");
     try
     {
       String header = data[0].trim();
@@ -72,7 +72,8 @@ class DeepVisionMCU extends MicroControllerUnit implements Runnable
 
       if (cmd.equals("SLR")) {
         for (int i = 0; i < slices.length; i++) { 
-          float b = parseFloat(data[i].trim());
+          float b = parseFloat(data[i + 2].trim());
+
           slices[i].brightness = map(b, 0.0, 1.0, minBrightness, maxBrightness);
         }
       }

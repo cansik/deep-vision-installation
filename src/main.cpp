@@ -101,6 +101,12 @@ void setup() {
 
     Serial.printf("setup finished (V: %d)\n", installation.getSettings()->getVersion());
     Serial.printf("OSC Rule Count: %d\n", oscRouter.getRules().size());
+
+    // list all rules
+    for (auto &rule : oscRouter.getRules()) {
+        Serial.println(rule->getAddress());
+    }
+
     sendRefresh();
 }
 

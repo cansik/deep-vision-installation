@@ -24,7 +24,7 @@ float plateSpace = 150;
 float plateWidth = 10;
 float plateHeight = 10;
 
-float minBrightness = 100;
+float minBrightness = 50;
 float maxBrightness = 255;
 
 void setup()
@@ -39,10 +39,10 @@ void setup()
   for (int i = 0; i < slices.length; i++) {
     Slice s = new Slice(this, "slice_" + i + ".png");
     s.setup();
-    
+
     plateWidth = s.texture.width;
     plateHeight = s.texture.height;
-    
+
     slices[i] = s;
   }
 
@@ -97,6 +97,7 @@ void showInfo()
   textSize(14);
   text("MCU detected: " + isMcuAvailable 
     + "\nattached: " + (mcu.isAttached()) 
+    + "\nbrightness of 0: " + (slices[0].brightness) 
     + "\nFPS: " + round(frameRate), 20, 20);
   cam.endHUD();
 }

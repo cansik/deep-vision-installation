@@ -19,7 +19,7 @@ void SerialLightRenderer::setup() {
 void SerialLightRenderer::timedLoop() {
     LightRenderer::timedLoop();
 
-    String msg = "SLR;";
+    String msg = "TST;SLR;";
 
     for (int i = 0; i < installation->getSize(); i++) {
         auto brightness = mapToGlobalBrightnessRange(installation->getSlice(i)->getLed()->getBrightness());
