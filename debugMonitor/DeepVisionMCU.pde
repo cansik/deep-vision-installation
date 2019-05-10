@@ -71,10 +71,10 @@ class DeepVisionMCU extends MicroControllerUnit implements Runnable
       String cmd = data[1].trim();
 
       if (cmd.equals("SLR")) {
-        // map data
-        float x = parseFloat(data[2].trim());
-
-        println("DATA: " + raw.trim());
+        for (int i = 0; i < slices.length; i++) { 
+          float b = parseFloat(data[i].trim());
+          slices[i].brightness = map(b, 0.0, 1.0, minBrightness, maxBrightness);
+        }
       }
     }
     catch(Exception ex)

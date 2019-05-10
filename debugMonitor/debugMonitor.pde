@@ -15,6 +15,18 @@ PeasyCam cam;
 
 boolean debug = true;
 
+int sliceCount = 7;
+
+Slice[] slices = new Slice[sliceCount];
+
+float plateThickness = 4;
+float plateSpace = 150;
+float plateWidth = 10;
+float plateHeight = 10;
+
+float minBrightness = 100;
+float maxBrightness = 255;
+
 void setup()
 {
   frameRate(60);
@@ -22,7 +34,17 @@ void setup()
   pixelDensity(2);
   surface.setTitle("Deep Vision Debug Monitor");
 
-  cam = new PeasyCam(this, 0, 0, 0, 400);
+  cam = new PeasyCam(this, 0, 0, 0, 2000);
+
+  for (int i = 0; i < slices.length; i++) {
+    Slice s = new Slice(this, "slice_" + i + ".png");
+    s.setup();
+    
+    plateWidth = s.texture.width;
+    plateHeight = s.texture.height;
+    
+    slices[i] = s;
+  }
 
   // try to attach
   checkDevices();
@@ -45,7 +67,18 @@ void draw()
 
   background(0);
 
+  renderSlices();
+
   showInfo();
+}
+
+void renderSlices() {
+  for (int i = 0; i < slices.length; i++) {
+    push();
+    Slice s = slices[i];
+    s.renderPlate(this.g, i);
+    pop();
+  }
 }
 
 void showDebug(String text)
@@ -94,4 +127,8 @@ void checkDevices()
 }
 
 void oscEvent(OscMessage theOscMessage) {
+}
+
+float getPlateZ(int index) {
+  return (index * (plateSpace + plateThickness)) - ((slices.length * (plateSpace + plateThickness)) / 2f);
 }
