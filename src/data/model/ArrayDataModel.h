@@ -60,7 +60,7 @@ ArrayDataModel<T>::ArrayDataModel(T defaultValue, int size) {
     ArrayDataModel::size = size;
 
     // init array
-    values = new DataModel<T>[size];
+    values = new DataModelPtr[size];
 
     // init models
     for (auto i = 0; i < size; i++) {
@@ -71,14 +71,14 @@ ArrayDataModel<T>::ArrayDataModel(T defaultValue, int size) {
 template<typename T>
 void ArrayDataModel<T>::reset() {
     for (auto i = 0; i < size; i++) {
-        values[i].reset();
+        values[i]->reset();
     }
 }
 
 template<typename T>
 void ArrayDataModel<T>::saveToEEPROM(int address) {
     // read stride from first value
-    auto stride = values[0].sizeInEEPROM();
+    auto stride = values[0]->sizeInEEPROM();
 
     for (auto i = 0; i < size; i++) {
         values[i]->saveToEEPROM(address + (i * stride));
@@ -88,7 +88,7 @@ void ArrayDataModel<T>::saveToEEPROM(int address) {
 template<typename T>
 void ArrayDataModel<T>::loadFromEEPROM(int address) {
     // read stride from first value
-    auto stride = values[0].sizeInEEPROM();
+    auto stride = values[0]->sizeInEEPROM();
 
     for (auto i = 0; i < size; i++) {
         values[i]->loadFromEEPROM(address + (i * stride));
@@ -97,7 +97,7 @@ void ArrayDataModel<T>::loadFromEEPROM(int address) {
 
 template<typename T>
 int ArrayDataModel<T>::sizeInEEPROM() {
-    return values[0].sizeInEEPROM() * size;
+    return values[0]->sizeInEEPROM() * size;
 }
 
 template<typename T>

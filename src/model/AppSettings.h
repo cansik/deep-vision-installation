@@ -8,6 +8,7 @@
 #include <data/osc/OSCDataRouter.h>
 #include <data/eeprom/EEPROMStorage.h>
 #include <data/model/DataModel.h>
+#include <data/model/ArrayDataModel.h>
 
 #define SETTINGS_VERSION 1000
 
@@ -50,6 +51,9 @@ private:
     DataModel<unsigned long> showSpeed = DataModel<unsigned long>(1000L);
 
     DataModel<bool> sceneControllerOn = DataModel<bool>(true);
+
+    // brightness
+    ArrayDataModel<float> defaultBrightness = ArrayDataModel<float>(0.5, 7);
 
 public:
     AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage, EEPROMStorage *statsStorage);
