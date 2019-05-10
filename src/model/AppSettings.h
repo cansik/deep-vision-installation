@@ -9,6 +9,7 @@
 #include <data/eeprom/EEPROMStorage.h>
 #include <data/model/DataModel.h>
 #include <data/model/ArrayDataModel.h>
+#include "DeepVisionConstants.h"
 
 #define SETTINGS_VERSION 1000
 
@@ -53,7 +54,7 @@ private:
     DataModel<bool> sceneControllerOn = DataModel<bool>(true);
 
     // brightness
-    ArrayDataModel<float> defaultBrightness = ArrayDataModel<float>(1.0, 7);
+    ArrayDataModel<float> defaultBrightness = ArrayDataModel<float>(1.0, SLICE_COUNT);
 
 public:
     AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage, EEPROMStorage *statsStorage);
