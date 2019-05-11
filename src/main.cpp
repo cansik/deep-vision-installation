@@ -49,9 +49,9 @@ LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // scenes
 auto defaultScene = DefaultScene(&installation);
-auto showScene = ShowScene(&installation);
+//auto showScene = ShowScene(&installation);
 auto timeStarScene = TimeStarScene(&installation);
-auto sceneController = InstallationSceneController(&installation, &defaultScene, &showScene);
+auto sceneController = InstallationSceneController(&installation, &defaultScene, &timeStarScene);
 
 // controller list
 BaseControllerPtr controllers[] = {
@@ -131,10 +131,12 @@ void setupOSCActions() {
     // scene chaning
     oscRouter.addRule(new OSCInputAction("/dv/scene/default", [](IOSCPublisher *publisher, OSCMessage &msg) {
         sceneController.changeScene(&defaultScene);
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCInputAction("/dv/scene/timeStar", [](IOSCPublisher *publisher, OSCMessage &msg) {
         sceneController.changeScene(&timeStarScene);
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCInputAction("/dv/stats/reset", [](IOSCPublisher *publisher, OSCMessage &msg) {
@@ -190,4 +192,5 @@ void handleOsc(OSCMessage &msg) {
 
 void sendRefresh() {
     oscRouter.publishAll();
+    osc.send("/dv/scene/active", sceneController.getActiveScene()->getName());
 }
