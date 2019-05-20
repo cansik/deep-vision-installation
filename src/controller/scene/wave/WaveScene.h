@@ -24,8 +24,6 @@ public:
 
     void loop() override;
 
-    void pollNewWave();
-
     void startWave();
 };
 

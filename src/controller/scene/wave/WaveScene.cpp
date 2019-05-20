@@ -5,8 +5,7 @@
 #include <util/MathUtils.h>
 #include "WaveScene.h"
 
-WaveScene::WaveScene(Installation *installation) : BaseScene("WaveScene",
-                                                             installation) {
+WaveScene::WaveScene(Installation *installation) : BaseScene("WaveScene", installation) {
 }
 
 void WaveScene::setup() {
@@ -20,9 +19,6 @@ void WaveScene::setup() {
 
 void WaveScene::loop() {
     BaseScene::loop();
-
-    // check for new wave
-    pollNewWave();
 
     // update current waves
     for (unsigned long &waveStart : this->waves) {
@@ -69,11 +65,6 @@ bool WaveScene::updateSlice(SlicePtr slice, int sliceId, unsigned long timeDiff)
                                                     installation->getSettings()->getWaveMaxBrightness());
     slice->getLed()->setBrightness(clamped);
     return true;
-}
-
-void WaveScene::pollNewWave() {
-    // check for wave and clear flag
-    startWave();
 }
 
 void WaveScene::startWave() {
