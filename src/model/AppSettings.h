@@ -58,6 +58,15 @@ private:
     // brightness
     ArrayDataModel<float> defaultBrightness = ArrayDataModel<float>(1.0, SLICE_COUNT);
 
+    // wave settings
+    DataModel<unsigned long> waveDuration = DataModel<unsigned long>(500L);
+
+    DataModel<unsigned long> waveTravelSpeed = DataModel<unsigned long>(135L);
+
+    DataModel<float> waveMinBrightness = DataModel<float>(0.0f);
+
+    DataModel<float> waveMaxBrightness = DataModel<float>(1.0f);
+
 public:
     AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage, EEPROMStorage *statsStorage);
 
@@ -130,6 +139,22 @@ public:
     void setSceneControllerOn(bool value);
 
     const float getDefaultBrightness(int index) const;
+
+    unsigned long getWaveDuration() const;
+
+    void setWaveDuration(unsigned long waveDuration);
+
+    unsigned long getWaveTravelSpeed() const;
+
+    void setWaveTravelSpeed(unsigned long waveTravelSpeed);
+
+    float getWaveMinBrightness() const;
+
+    void setWaveMinBrightness(float waveMinBrightness);
+
+    float getWaveMaxBrightness() const;
+
+    void setWaveMaxBrightness(float waveMaxBrightness);
 };
 
 

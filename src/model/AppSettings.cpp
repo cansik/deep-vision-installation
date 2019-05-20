@@ -196,3 +196,35 @@ void AppSettings::setGammaFactor(float value) {
 float AppSettings::getGammaFactor() {
     return gammaFactor.get();
 }
+
+unsigned long AppSettings::getWaveDuration() const {
+    return waveDuration.get();
+}
+
+void AppSettings::setWaveDuration(unsigned long value) {
+    waveDuration.set(value);
+}
+
+unsigned long AppSettings::getWaveTravelSpeed() const {
+    return waveTravelSpeed.get();
+}
+
+void AppSettings::setWaveTravelSpeed(unsigned long value) {
+    waveTravelSpeed.set(value);
+}
+
+float AppSettings::getWaveMinBrightness() const {
+    return waveMinBrightness.get();
+}
+
+void AppSettings::setWaveMinBrightness(float value) {
+    waveMinBrightness.set(value);
+}
+
+float AppSettings::getWaveMaxBrightness() const {
+    return waveMaxBrightness.get();
+}
+
+void AppSettings::setWaveMaxBrightness(float value) {
+    waveMaxBrightness.set(value);
+}

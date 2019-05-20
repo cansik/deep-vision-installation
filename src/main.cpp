@@ -12,6 +12,7 @@
 #include <data/osc/rule/OSCOutputAction.h>
 #include <controller/scene/star/TimeStarScene.h>
 #include <controller/util/FPSMonitor.h>
+#include <controller/scene/wave/WaveScene.h>
 
 #include "controller/BaseController.h"
 #include "model/Slice.h"
@@ -52,6 +53,7 @@ LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 auto defaultScene = DefaultScene(&installation);
 //auto showScene = ShowScene(&installation);
 auto timeStarScene = TimeStarScene(&installation);
+auto waveScene = WaveScene(&installation);
 auto sceneController = InstallationSceneController(&installation, &defaultScene, &timeStarScene);
 
 // utils
@@ -140,6 +142,15 @@ void setupOSCActions() {
     oscRouter.addRule(new OSCInputAction("/dv/scene/timeStar", [](IOSCPublisher *publisher, OSCMessage &msg) {
         sceneController.changeScene(&timeStarScene);
         sendRefresh();
+    }));
+
+    oscRouter.addRule(new OSCInputAction("/dv/scene/wave", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        sceneController.changeScene(&waveScene);
+        sendRefresh();
+    }));
+
+    oscRouter.addRule(new OSCInputAction("/dv/wave/start", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        waveScene.startWave();
     }));
 
     oscRouter.addRule(new OSCInputAction("/dv/stats/reset", [](IOSCPublisher *publisher, OSCMessage &msg) {
