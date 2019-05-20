@@ -11,6 +11,7 @@
 #include <data/osc/rule/OSCInputAction.h>
 #include <data/osc/rule/OSCOutputAction.h>
 #include <controller/scene/star/TimeStarScene.h>
+#include <controller/util/FPSMonitor.h>
 
 #include "controller/BaseController.h"
 #include "model/Slice.h"
@@ -53,15 +54,19 @@ auto defaultScene = DefaultScene(&installation);
 auto timeStarScene = TimeStarScene(&installation);
 auto sceneController = InstallationSceneController(&installation, &defaultScene, &timeStarScene);
 
+// utils
+auto fpsMonitor = FPSMonitor();
+
 // controller list
 BaseControllerPtr controllers[] = {
         &network,
         &ota,
         &osc,
-        debugRenderer,
+        //debugRenderer,
         renderer,
         &sceneController,
-        &installation
+        &installation,
+        &fpsMonitor
 };
 
 // methods
