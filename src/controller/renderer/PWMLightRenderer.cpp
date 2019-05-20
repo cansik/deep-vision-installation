@@ -46,10 +46,19 @@ void PWMLightRenderer::render(SlicePtr slice) {
     // map global brightness
     auto brightness = mapToGlobalBrightnessRange(slice->getLed()->getBrightness());
 
-    // convert to dmx
+    // convert to pwm
     auto pwmValue = static_cast<uint8_t>(std::lround(
             MathUtils::map(brightness, LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS, pwmMinValue, pwmMaxValue)
     ));
 
+    // gamma correct
+    if (installation->getSettings()->isGammaCorrection()) {
+        pwmValue = gammaCorrection(pwmValue, installation->getSettings()->getGammaFactor());
+    }
+
     analogWrite(pinAddress, pwmValue, pwmMaxValue);
+}
+
+uint32_t PWMLightRenderer::gammaCorrection(uint32_t value, float correction) {
+    return static_cast<uint32_t>(pow(static_cast<float>(value) / pwmMaxValue, correction) * pwmMaxValue + 0.5);
 }

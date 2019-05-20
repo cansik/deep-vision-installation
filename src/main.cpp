@@ -75,7 +75,7 @@ void setup() {
     Serial.begin(BAUD_RATE);
 
     // wait some seconds for debugging
-    delay(5000);
+    delay(3000);
 
     // setup random seed
     randomSeed(static_cast<unsigned long>(analogRead(0)));

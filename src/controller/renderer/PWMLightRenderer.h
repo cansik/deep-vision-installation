@@ -8,11 +8,6 @@
 
 #include "LightRenderer.h"
 
-#define DMX_MAX_CHANNEL 512
-
-#define DMX_MIN_VALUE 0
-#define DMX_MAX_VALUE 255
-
 class PWMLightRenderer : public LightRenderer {
 private:
     uint8_t *pwmPins;
@@ -31,6 +26,8 @@ public:
     void timedLoop() override;
 
     void render(SlicePtr slice) override;
+
+    uint32_t gammaCorrection(uint32_t value, float correction);
 };
 
 

@@ -28,6 +28,8 @@ private:
 
     DataModel<bool> gammaCorrection = DataModel<bool>(true);
 
+    DataModel<float> gammaFactor = DataModel<float>(2.8f);
+
     DataModel<bool> autoSave = DataModel<bool>(true);
 
     DataModel<unsigned long> autoSaveTime = DataModel<unsigned long>(30 * 60 * 1000);
@@ -86,6 +88,10 @@ public:
     bool isGammaCorrection() const;
 
     void setGammaCorrection(bool gammaCorrection);
+
+    float getGammaFactor();
+
+    void setGammaFactor(float value);
 
     unsigned long getTimeStarMinDuration() const;
 

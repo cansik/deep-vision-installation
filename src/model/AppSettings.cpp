@@ -39,6 +39,7 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     oscDataRouter->addRule(new OSCDataBinding("/dv/brightness/min", &minBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/brightness/max", &maxBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/gamma/on", &gammaCorrection, true));
+    oscDataRouter->addRule(new OSCDataBinding("/dv/gamma/factor", &gammaFactor, true));
 
     oscDataRouter->addRule(new OSCDataBinding("/dv/autosave/on", &autoSave, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/autosave/time", &autoSaveTime, true, minuteConverter));
@@ -186,4 +187,12 @@ void AppSettings::incRestartCount() {
 
 const float AppSettings::getDefaultBrightness(int index) const {
     return defaultBrightness.get(index);
+}
+
+void AppSettings::setGammaFactor(float value) {
+    gammaFactor.set(value);
+}
+
+float AppSettings::getGammaFactor() {
+    return gammaFactor.get();
 }
