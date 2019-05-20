@@ -22,6 +22,8 @@ public:
 
     static bool isRandomCalled(float factor);
 
+    static float round(float value, int decimalPlaces);
+
     static float randomFloat(float minValue, float maxValue, float precision = 1000.0f);
 
     template<typename T>

@@ -31,6 +31,8 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     auto secondConverter = new ScaleBindingConverter(1000, true);
     auto minuteConverter = new ScaleBindingConverter(1000 * 60, true);
     auto hourConverter = new ScaleBindingConverter(1000 * 60 * 60, true);
+    auto deciSecondConverter = new ScaleBindingConverter(10, true, 1);
+
     //auto dayConverter = new ScaleBindingConverter(1000 * 60 * 60 * 24, true);
 
     // osc
@@ -55,6 +57,11 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/brightness/min", &timeStarMinBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/brightness/max", &timeStarMaxBrightness, true));
     defaultBrightness.addToOSCRouter(oscDataRouter, "/dv/led/%i/default", true);
+
+    oscDataRouter->addRule(new OSCDataBinding("/dv/wave/brightness/min", &waveMinBrightness, true));
+    oscDataRouter->addRule(new OSCDataBinding("/dv/wave/brightness/max", &waveMaxBrightness, true));
+    oscDataRouter->addRule(new OSCDataBinding("/dv/wave/travelSpeed", &waveTravelSpeed, true, deciSecondConverter));
+    oscDataRouter->addRule(new OSCDataBinding("/dv/wave/duration", &waveDuration, true, deciSecondConverter));
 }
 
 float AppSettings::getMinBrightness() const {

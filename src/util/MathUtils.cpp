@@ -1,5 +1,7 @@
 #include <cmath>
 
+#include <cmath>
+
 //
 // Created by Florian on 06.12.17.
 //
@@ -82,4 +84,13 @@ int *MathUtils::getIndexes(int start, int end) {
         indexes[i] = i + start;
     }
     return indexes;
+}
+
+float MathUtils::round(float value, int decimalPlaces = 0) {
+    if (decimalPlaces <= 0) {
+        return std::llround(value);
+    }
+
+    auto conversion = pow10(decimalPlaces);
+    return llround(value * conversion) / conversion;
 }

@@ -12,9 +12,10 @@ class ScaleBindingConverter : public IOSCBindingConverter {
 private:
     float scale;
     bool roundValue;
+    int decimalPlaces;
 
 public:
-    explicit ScaleBindingConverter(float scale, bool roundValue = false);
+    explicit ScaleBindingConverter(float scale, bool roundValue = false, int decimalPlaces = 0);
 
     float convertInput(float value) override;
 
@@ -27,6 +28,10 @@ public:
     bool isRoundValue() const;
 
     void setRoundValue(bool roundValue);
+
+    int getDecimalPlaces() const;
+
+    void setDecimalPlaces(int decimalPlaces);
 };
 
 
