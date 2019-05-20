@@ -33,12 +33,12 @@ void WaveScene::loop() {
         // calculate timediff
         auto timeDiff = millis() - waveStart;
 
-        // update luboids
+        // update slices
         auto waveIsRelevant = false;
         for (auto i = 0; i < installation->getSize(); i++) {
-            auto luboid = installation->getSlice(i);
+            auto slice = installation->getSlice(i);
 
-            if (updateSlice(luboid, i, timeDiff))
+            if (updateSlice(slice, i, timeDiff))
                 waveIsRelevant = true;
         }
 

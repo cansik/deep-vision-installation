@@ -28,20 +28,21 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     statsStorage->add(&restartCount);
 
     // create converter
+    auto defaultFloatConverter = new ScaleBindingConverter(1, true, 2);
     auto secondConverter = new ScaleBindingConverter(1000, true);
     auto minuteConverter = new ScaleBindingConverter(1000 * 60, true);
     auto hourConverter = new ScaleBindingConverter(1000 * 60 * 60, true);
-    auto deciSecondConverter = new ScaleBindingConverter(10, true, 1);
+    auto deciSecondConverter = new ScaleBindingConverter(1000, true, 3);
 
     //auto dayConverter = new ScaleBindingConverter(1000 * 60 * 60 * 24, true);
 
     // osc
     oscDataRouter->addRule(new OSCDataBinding("/dv/version", &version, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/scenemanager/on", &sceneControllerOn, true));
-    oscDataRouter->addRule(new OSCDataBinding("/dv/brightness/min", &minBrightness, true));
-    oscDataRouter->addRule(new OSCDataBinding("/dv/brightness/max", &maxBrightness, true));
+    oscDataRouter->addRule(new OSCDataBinding("/dv/brightness/min", &minBrightness, true, defaultFloatConverter));
+    oscDataRouter->addRule(new OSCDataBinding("/dv/brightness/max", &maxBrightness, true, defaultFloatConverter));
     oscDataRouter->addRule(new OSCDataBinding("/dv/gamma/on", &gammaCorrection, true));
-    oscDataRouter->addRule(new OSCDataBinding("/dv/gamma/factor", &gammaFactor, true));
+    oscDataRouter->addRule(new OSCDataBinding("/dv/gamma/factor", &gammaFactor, true, defaultFloatConverter));
 
     oscDataRouter->addRule(new OSCDataBinding("/dv/autosave/on", &autoSave, true));
     oscDataRouter->addRule(new OSCDataBinding("/dv/autosave/time", &autoSaveTime, true, minuteConverter));
@@ -53,13 +54,18 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
             new OSCDataBinding("/dv/timestar/duration/min", &timeStarMinDuration, true, secondConverter));
     oscDataRouter->addRule(
             new OSCDataBinding("/dv/timestar/duration/max", &timeStarMaxDuration, true, secondConverter));
-    oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/randomFactor", &timeStarRandomOnFactor, true));
-    oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/brightness/min", &timeStarMinBrightness, true));
-    oscDataRouter->addRule(new OSCDataBinding("/dv/timestar/brightness/max", &timeStarMaxBrightness, true));
-    defaultBrightness.addToOSCRouter(oscDataRouter, "/dv/led/%i/default", true);
+    oscDataRouter->addRule(
+            new OSCDataBinding("/dv/timestar/randomFactor", &timeStarRandomOnFactor, true, defaultFloatConverter));
+    oscDataRouter->addRule(
+            new OSCDataBinding("/dv/timestar/brightness/min", &timeStarMinBrightness, true, defaultFloatConverter));
+    oscDataRouter->addRule(
+            new OSCDataBinding("/dv/timestar/brightness/max", &timeStarMaxBrightness, true, defaultFloatConverter));
+    defaultBrightness.addToOSCRouter(oscDataRouter, "/dv/led/%i/default", true, defaultFloatConverter);
 
-    oscDataRouter->addRule(new OSCDataBinding("/dv/wave/brightness/min", &waveMinBrightness, true));
-    oscDataRouter->addRule(new OSCDataBinding("/dv/wave/brightness/max", &waveMaxBrightness, true));
+    oscDataRouter->addRule(
+            new OSCDataBinding("/dv/wave/brightness/min", &waveMinBrightness, true, defaultFloatConverter));
+    oscDataRouter->addRule(
+            new OSCDataBinding("/dv/wave/brightness/max", &waveMaxBrightness, true, defaultFloatConverter));
     oscDataRouter->addRule(new OSCDataBinding("/dv/wave/travelSpeed", &waveTravelSpeed, true, deciSecondConverter));
     oscDataRouter->addRule(new OSCDataBinding("/dv/wave/duration", &waveDuration, true, deciSecondConverter));
 }

@@ -151,6 +151,7 @@ void setupOSCActions() {
 
     oscRouter.addRule(new OSCInputAction("/dv/wave/start", [](IOSCPublisher *publisher, OSCMessage &msg) {
         waveScene.startWave();
+        Serial.println("starting wave...");
     }));
 
     oscRouter.addRule(new OSCInputAction("/dv/stats/reset", [](IOSCPublisher *publisher, OSCMessage &msg) {
