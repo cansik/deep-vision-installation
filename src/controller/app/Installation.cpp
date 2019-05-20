@@ -17,6 +17,9 @@ Installation::Installation(uint16_t size, SlicePtr *portals, OSCDataRouter *oscD
 
     this->settings = new AppSettings(oscDataRouter, settingsStorage, statsStorage);
     this->autoSaveTimer = new Timer(settings->getAutoSaveTime());
+
+    // setup last save time
+    lastSaveTimeStamp = millis();
 }
 
 uint16_t Installation::getSize() {
@@ -84,6 +87,13 @@ void Installation::timedLoop() {
     // auto save stats
     this->autoSaveTimer->setWaitTime(settings->getAutoSaveTime());
     if (settings->isAutoSave() && autoSaveTimer->elapsed()) {
+
+        // set running time
+        auto timeStamp = millis();
+        auto deltaTime = timeStamp - lastSaveTimeStamp;
+        settings->setRunningTime(deltaTime + settings->getRunningTime());
+
+        // save stats
         statsStorage->save();
         Serial.println("auto saved statistics");
     }

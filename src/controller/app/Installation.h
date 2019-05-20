@@ -32,6 +32,8 @@ private:
 
     EEPROMStorage *statsStorage;
 
+    unsigned long lastSaveTimeStamp = 0;
+
 public:
     Installation(uint16_t size, SlicePtr *portals, OSCDataRouter *oscDataRouter);
 
