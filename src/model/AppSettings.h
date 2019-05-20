@@ -11,7 +11,7 @@
 #include <data/model/ArrayDataModel.h>
 #include "DeepVisionConstants.h"
 
-#define SETTINGS_VERSION 1000
+#define SETTINGS_VERSION 1001
 
 #define APP_FRAME_RATE 60L
 

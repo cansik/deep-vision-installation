@@ -12,16 +12,12 @@ class InstallationSceneController : public SceneController {
 private:
     BaseScene *defaultScene;
 
-    BaseScene *showScene;
-
 public:
-    explicit InstallationSceneController(Installation *installation, BaseScene *defaultScene, BaseScene *showScene);
+    explicit InstallationSceneController(Installation *installation, BaseScene *defaultScene);
 
     void setup() override;
 
     void timedLoop() override;
-
-    void selectRelevantScene();
 };
 
 #endif //SILVA_ABEN_CONTROLLER_H

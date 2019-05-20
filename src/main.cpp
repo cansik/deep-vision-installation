@@ -54,7 +54,14 @@ auto defaultScene = DefaultScene(&installation);
 //auto showScene = ShowScene(&installation);
 auto timeStarScene = TimeStarScene(&installation);
 auto waveScene = WaveScene(&installation);
-auto sceneController = InstallationSceneController(&installation, &defaultScene, &timeStarScene);
+
+BaseScene *scenes[] = {
+        &defaultScene,
+        &timeStarScene,
+        &waveScene
+};
+
+auto sceneController = InstallationSceneController(&installation, &defaultScene);
 
 // utils
 auto fpsMonitor = FPSMonitor();
@@ -97,6 +104,11 @@ void setup() {
     // setup controllers
     for (auto &controller : controllers) {
         controller->setup();
+    }
+
+    // setup scenes
+    for (auto &scene : scenes) {
+        scene->setup();
     }
 
     // setup handlers
@@ -190,6 +202,8 @@ void setupOSCActions() {
 
         osc.send("/dv/status", "Status: saved");
         sendRefresh();
+
+        Serial.println("saved!");
     }));
 
     oscRouter.addRule(new OSCInputAction("/dv/settings/default", [](IOSCPublisher *publisher, OSCMessage &msg) {
