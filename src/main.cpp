@@ -61,7 +61,7 @@ BaseScene *scenes[] = {
         &waveScene
 };
 
-auto sceneController = InstallationSceneController(&installation, &defaultScene);
+auto sceneController = InstallationSceneController(&installation, &timeStarScene);
 
 // utils
 auto fpsMonitor = FPSMonitor();
